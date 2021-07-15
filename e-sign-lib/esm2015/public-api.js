@@ -1,0 +1,8 @@
+/*
+ * Public API Surface of e-sign-lib
+ */
+export * as models from './lib/models/index';
+export * from './lib/xml-e-sign.directive';
+export * from './lib/crypto-pro.service';
+export * from './lib/e-signer.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL2Utc2lnbi1saWIvc3JjL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFFSCxPQUFPLEtBQUssTUFBTSxNQUFNLG9CQUFvQixDQUFDO0FBQzdDLGNBQWMsNEJBQTRCLENBQUM7QUFDM0MsY0FBYywwQkFBMEIsQ0FBQztBQUN6QyxjQUFjLHVCQUF1QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBlLXNpZ24tbGliXG4gKi9cblxuZXhwb3J0ICogYXMgbW9kZWxzIGZyb20gJy4vbGliL21vZGVscy9pbmRleCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi94bWwtZS1zaWduLmRpcmVjdGl2ZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9jcnlwdG8tcHJvLnNlcnZpY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvZS1zaWduZXIubW9kdWxlJztcbiJdfQ==
