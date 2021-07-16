@@ -676,7 +676,7 @@
             var CAPICOM_CURRENT_USER_STORE = 2;
             var CAPICOM_MY_STORE = 'My';
             var CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = 2;
-            var CAPICOM_SMART_CARD_USER_STORE = 4;
+            var CADESCOM_CONTAINER_STORE = 100;
             var CAPICOM_CERTIFICATE_FIND_SHA1_HASH = 0;
             var CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME = 1;
             var CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE = 2;
@@ -698,7 +698,7 @@
                                 return [4 /*yield*/, cadesplugin.CreateObjectAsync('CAdESCOM.Store')];
                             case 1:
                                 oStore = _a.sent();
-                                return [4 /*yield*/, oStore.Open(CAPICOM_CURRENT_USER_STORE, CAPICOM_MY_STORE, CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED, CAPICOM_SMART_CARD_USER_STORE)];
+                                return [4 /*yield*/, oStore.Open(CAPICOM_CURRENT_USER_STORE, CAPICOM_MY_STORE, CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED, CADESCOM_CONTAINER_STORE)];
                             case 2:
                                 _a.sent();
                                 return [4 /*yield*/, oStore.Certificates];

@@ -332,7 +332,7 @@ class XMLESignDirective {
         const CAPICOM_CURRENT_USER_STORE = 2;
         const CAPICOM_MY_STORE = 'My';
         const CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = 2;
-        const CAPICOM_SMART_CARD_USER_STORE = 4;
+        const CADESCOM_CONTAINER_STORE = 100;
         const CAPICOM_CERTIFICATE_FIND_SHA1_HASH = 0;
         const CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME = 1;
         const CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE = 2;
@@ -350,7 +350,7 @@ class XMLESignDirective {
                 // Ищем сертификат для подписи
                 // @ts-ignore
                 const oStore = yield cadesplugin.CreateObjectAsync('CAdESCOM.Store');
-                yield oStore.Open(CAPICOM_CURRENT_USER_STORE, CAPICOM_MY_STORE, CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED, CAPICOM_SMART_CARD_USER_STORE);
+                yield oStore.Open(CAPICOM_CURRENT_USER_STORE, CAPICOM_MY_STORE, CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED, CADESCOM_CONTAINER_STORE);
                 const oStoreCerts = yield oStore.Certificates;
                 const oCertificates = yield oStoreCerts.Find(CAPICOM_CERTIFICATE_FIND_SHA1_HASH, sCertName);
                 const certsCount = yield oCertificates.Count;
