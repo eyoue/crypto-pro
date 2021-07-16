@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('js2xmlparser'), require('@epsr/crypto-pro'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@utp/e-sign-lib', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', 'js2xmlparser', '@epsr/crypto-pro', '@angular/common'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.utp = global.utp || {}, global.utp['e-sign-lib'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.JsonToXML, global.cryptoPro, global.ng.common));
-}(this, (function (exports, i0, rxjs, operators, JsonToXML, cryptoPro, common) { 'use strict';
+}(this, (function (exports, core, rxjs, operators, JsonToXML, cryptoPro, common) { 'use strict';
 
     var CryptoProPluginInfo = /** @class */ (function () {
         function CryptoProPluginInfo(_a) {
@@ -340,39 +340,6 @@
         return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
-    var CertificatesMapper = /** @class */ (function () {
-        function CertificatesMapper() {
-        }
-        CertificatesMapper.map = function (src) {
-            if (!src) {
-                return null;
-            }
-            var issuerName = src.issuerName, name = src.name, thumbprint = src.thumbprint, validFrom = src.validFrom, validTo = src.validTo;
-            var matches = issuerName.match(/CN=([^,+]*)/);
-            var normalizedName = (matches && matches.length > 0)
-                ? matches[1]
-                : issuerName;
-            return {
-                issuerName: normalizedName,
-                isValid: true,
-                name: name,
-                thumbprint: thumbprint,
-                validFrom: validFrom,
-                validTo: validTo
-            };
-        };
-        return CertificatesMapper;
-    }());
-
-    var EMPTY_CERTIFICATE = {
-        issuerName: 'Тестовый сертификат',
-        isValid: true,
-        name: 'Test Certificate',
-        thumbprint: 'A2C5DF002CF2260D13D38186AE8C99C9BE660602',
-        validFrom: '2021-04-05T16:35:09.000Z',
-        validTo: '2021-07-05T16:45:09.000Z'
-    };
-
     var CryptoProService = /** @class */ (function () {
         function CryptoProService() {
             this.isPlugin = false;
@@ -435,13 +402,43 @@
         };
         return CryptoProService;
     }());
-    CryptoProService.ɵfac = function CryptoProService_Factory(t) { return new (t || CryptoProService)(); };
-    CryptoProService.ɵprov = i0.ɵɵdefineInjectable({ token: CryptoProService, factory: CryptoProService.ɵfac });
-    (function () {
-        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(CryptoProService, [{
-                type: i0.Injectable
-            }], function () { return []; }, null);
-    })();
+    CryptoProService.decorators = [
+        { type: core.Injectable }
+    ];
+    CryptoProService.ctorParameters = function () { return []; };
+
+    var CertificatesMapper = /** @class */ (function () {
+        function CertificatesMapper() {
+        }
+        CertificatesMapper.map = function (src) {
+            if (!src) {
+                return null;
+            }
+            var issuerName = src.issuerName, name = src.name, thumbprint = src.thumbprint, validFrom = src.validFrom, validTo = src.validTo;
+            var matches = issuerName.match(/CN=([^,+]*)/);
+            var normalizedName = (matches && matches.length > 0)
+                ? matches[1]
+                : issuerName;
+            return {
+                issuerName: normalizedName,
+                isValid: true,
+                name: name,
+                thumbprint: thumbprint,
+                validFrom: validFrom,
+                validTo: validTo
+            };
+        };
+        return CertificatesMapper;
+    }());
+
+    var EMPTY_CERTIFICATE = {
+        issuerName: 'Тестовый сертификат',
+        isValid: true,
+        name: 'Test Certificate',
+        thumbprint: 'A2C5DF002CF2260D13D38186AE8C99C9BE660602',
+        validFrom: '2021-04-05T16:35:09.000Z',
+        validTo: '2021-07-05T16:45:09.000Z'
+    };
 
     var XMLESignDirective = /** @class */ (function () {
         function XMLESignDirective(cryptoService) {
@@ -477,11 +474,11 @@
             /**
              * @description События успеха
              */
-            this.successResult = new i0.EventEmitter(null);
+            this.successResult = new core.EventEmitter(null);
             /**
              * @description События ошибок
              */
-            this.failedResult = new i0.EventEmitter(null);
+            this.failedResult = new core.EventEmitter(null);
             /**
              *
              * @param body - тело xml с данными пользователя (строка)
@@ -798,34 +795,23 @@
         };
         return XMLESignDirective;
     }());
-    XMLESignDirective.ɵfac = function XMLESignDirective_Factory(t) { return new (t || XMLESignDirective)(i0.ɵɵdirectiveInject(CryptoProService)); };
-    XMLESignDirective.ɵdir = i0.ɵɵdefineDirective({ type: XMLESignDirective, selectors: [["", "xml-e-sign", ""]], hostBindings: function XMLESignDirective_HostBindings(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵlistener("keyup", function XMLESignDirective_keyup_HostBindingHandler($event) { return ctx.keyEvent($event); }, false, i0.ɵɵresolveWindow);
-            }
-        }, inputs: { rootField: "rootField", jsonObject: "jsonObject", isNeedDownloadFile: "isNeedDownloadFile" }, outputs: { successResult: "successResult", failedResult: "failedResult" }, exportAs: ["xmlESign"] });
-    (function () {
-        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(XMLESignDirective, [{
-                type: i0.Directive,
-                args: [{
-                        selector: '[xml-e-sign]',
-                        exportAs: 'xmlESign'
-                    }]
-            }], function () { return [{ type: CryptoProService }]; }, { rootField: [{
-                    type: i0.Input
-                }], jsonObject: [{
-                    type: i0.Input
-                }], isNeedDownloadFile: [{
-                    type: i0.Input
-                }], successResult: [{
-                    type: i0.Output
-                }], failedResult: [{
-                    type: i0.Output
-                }], keyEvent: [{
-                    type: i0.HostListener,
-                    args: ['window:keyup', ['$event']]
-                }] });
-    })();
+    XMLESignDirective.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[xml-e-sign]',
+                    exportAs: 'xmlESign'
+                },] }
+    ];
+    XMLESignDirective.ctorParameters = function () { return [
+        { type: CryptoProService }
+    ]; };
+    XMLESignDirective.propDecorators = {
+        rootField: [{ type: core.Input }],
+        jsonObject: [{ type: core.Input }],
+        isNeedDownloadFile: [{ type: core.Input }],
+        successResult: [{ type: core.Output }],
+        failedResult: [{ type: core.Output }],
+        keyEvent: [{ type: core.HostListener, args: ['window:keyup', ['$event'],] }]
+    };
 
     var ESignerModule = /** @class */ (function () {
         function ESignerModule(cryptoService) {
@@ -834,25 +820,19 @@
         }
         return ESignerModule;
     }());
-    ESignerModule.ɵfac = function ESignerModule_Factory(t) { return new (t || ESignerModule)(i0.ɵɵinject(CryptoProService)); };
-    ESignerModule.ɵmod = i0.ɵɵdefineNgModule({ type: ESignerModule });
-    ESignerModule.ɵinj = i0.ɵɵdefineInjector({ providers: [CryptoProService], imports: [[
-                common.CommonModule,
-            ]] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ESignerModule, { declarations: [XMLESignDirective], imports: [common.CommonModule], exports: [XMLESignDirective] }); })();
-    (function () {
-        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ESignerModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: [
-                            common.CommonModule,
-                        ],
-                        providers: [CryptoProService],
-                        declarations: [XMLESignDirective],
-                        exports: [XMLESignDirective]
-                    }]
-            }], function () { return [{ type: CryptoProService }]; }, null);
-    })();
+    ESignerModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule,
+                    ],
+                    providers: [CryptoProService],
+                    declarations: [XMLESignDirective],
+                    exports: [XMLESignDirective]
+                },] }
+    ];
+    ESignerModule.ctorParameters = function () { return [
+        { type: CryptoProService }
+    ]; };
 
     /**
      * Generated bundle index. Do not edit.

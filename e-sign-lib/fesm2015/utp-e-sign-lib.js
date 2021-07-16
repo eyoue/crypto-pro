@@ -1,4 +1,4 @@
-import { ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, ɵɵresolveWindow, Directive, Input, Output, HostListener, ɵɵinject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { Injectable, EventEmitter, Directive, Input, Output, HostListener, NgModule } from '@angular/core';
 import { from, Observable, BehaviorSubject, of, iif, throwError } from 'rxjs';
 import { tap, catchError, map, filter } from 'rxjs/operators';
 import { parse } from 'js2xmlparser';
@@ -27,36 +27,6 @@ var index = /*#__PURE__*/Object.freeze({
     CryptoProPluginInfo: CryptoProPluginInfo,
     get ErrorCryptoPro () { return ErrorCryptoPro; }
 });
-
-class CertificatesMapper {
-    static map(src) {
-        if (!src) {
-            return null;
-        }
-        const { issuerName, name, thumbprint, validFrom, validTo } = src;
-        const matches = issuerName.match(/CN=([^,+]*)/);
-        const normalizedName = (matches && matches.length > 0)
-            ? matches[1]
-            : issuerName;
-        return {
-            issuerName: normalizedName,
-            isValid: true,
-            name,
-            thumbprint,
-            validFrom,
-            validTo
-        };
-    }
-}
-
-const EMPTY_CERTIFICATE = {
-    issuerName: 'Тестовый сертификат',
-    isValid: true,
-    name: 'Test Certificate',
-    thumbprint: 'A2C5DF002CF2260D13D38186AE8C99C9BE660602',
-    validFrom: '2021-04-05T16:35:09.000Z',
-    validTo: '2021-07-05T16:45:09.000Z'
-};
 
 class CryptoProService {
     constructor() {
@@ -101,11 +71,40 @@ class CryptoProService {
         });
     }
 }
-CryptoProService.ɵfac = function CryptoProService_Factory(t) { return new (t || CryptoProService)(); };
-CryptoProService.ɵprov = ɵɵdefineInjectable({ token: CryptoProService, factory: CryptoProService.ɵfac });
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(CryptoProService, [{
-        type: Injectable
-    }], function () { return []; }, null); })();
+CryptoProService.decorators = [
+    { type: Injectable }
+];
+CryptoProService.ctorParameters = () => [];
+
+class CertificatesMapper {
+    static map(src) {
+        if (!src) {
+            return null;
+        }
+        const { issuerName, name, thumbprint, validFrom, validTo } = src;
+        const matches = issuerName.match(/CN=([^,+]*)/);
+        const normalizedName = (matches && matches.length > 0)
+            ? matches[1]
+            : issuerName;
+        return {
+            issuerName: normalizedName,
+            isValid: true,
+            name,
+            thumbprint,
+            validFrom,
+            validTo
+        };
+    }
+}
+
+const EMPTY_CERTIFICATE = {
+    issuerName: 'Тестовый сертификат',
+    isValid: true,
+    name: 'Test Certificate',
+    thumbprint: 'A2C5DF002CF2260D13D38186AE8C99C9BE660602',
+    validFrom: '2021-04-05T16:35:09.000Z',
+    validTo: '2021-07-05T16:45:09.000Z'
+};
 
 class XMLESignDirective {
     constructor(cryptoService) {
@@ -452,30 +451,23 @@ class XMLESignDirective {
         run();
     }
 }
-XMLESignDirective.ɵfac = function XMLESignDirective_Factory(t) { return new (t || XMLESignDirective)(ɵɵdirectiveInject(CryptoProService)); };
-XMLESignDirective.ɵdir = ɵɵdefineDirective({ type: XMLESignDirective, selectors: [["", "xml-e-sign", ""]], hostBindings: function XMLESignDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("keyup", function XMLESignDirective_keyup_HostBindingHandler($event) { return ctx.keyEvent($event); }, false, ɵɵresolveWindow);
-    } }, inputs: { rootField: "rootField", jsonObject: "jsonObject", isNeedDownloadFile: "isNeedDownloadFile" }, outputs: { successResult: "successResult", failedResult: "failedResult" }, exportAs: ["xmlESign"] });
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(XMLESignDirective, [{
-        type: Directive,
-        args: [{
+XMLESignDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[xml-e-sign]',
                 exportAs: 'xmlESign'
-            }]
-    }], function () { return [{ type: CryptoProService }]; }, { rootField: [{
-            type: Input
-        }], jsonObject: [{
-            type: Input
-        }], isNeedDownloadFile: [{
-            type: Input
-        }], successResult: [{
-            type: Output
-        }], failedResult: [{
-            type: Output
-        }], keyEvent: [{
-            type: HostListener,
-            args: ['window:keyup', ['$event']]
-        }] }); })();
+            },] }
+];
+XMLESignDirective.ctorParameters = () => [
+    { type: CryptoProService }
+];
+XMLESignDirective.propDecorators = {
+    rootField: [{ type: Input }],
+    jsonObject: [{ type: Input }],
+    isNeedDownloadFile: [{ type: Input }],
+    successResult: [{ type: Output }],
+    failedResult: [{ type: Output }],
+    keyEvent: [{ type: HostListener, args: ['window:keyup', ['$event'],] }]
+};
 
 class ESignerModule {
     constructor(cryptoService) {
@@ -483,23 +475,19 @@ class ESignerModule {
         this.cryptoService.isPluginValid().subscribe();
     }
 }
-ESignerModule.ɵfac = function ESignerModule_Factory(t) { return new (t || ESignerModule)(ɵɵinject(CryptoProService)); };
-ESignerModule.ɵmod = ɵɵdefineNgModule({ type: ESignerModule });
-ESignerModule.ɵinj = ɵɵdefineInjector({ providers: [CryptoProService], imports: [[
-            CommonModule,
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ESignerModule, { declarations: [XMLESignDirective], imports: [CommonModule], exports: [XMLESignDirective] }); })();
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(ESignerModule, [{
-        type: NgModule,
-        args: [{
+ESignerModule.decorators = [
+    { type: NgModule, args: [{
                 imports: [
                     CommonModule,
                 ],
                 providers: [CryptoProService],
                 declarations: [XMLESignDirective],
                 exports: [XMLESignDirective]
-            }]
-    }], function () { return [{ type: CryptoProService }]; }, null); })();
+            },] }
+];
+ESignerModule.ctorParameters = () => [
+    { type: CryptoProService }
+];
 
 /*
  * Public API Surface of e-sign-lib
