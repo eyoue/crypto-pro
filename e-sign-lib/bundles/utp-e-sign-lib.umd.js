@@ -670,12 +670,12 @@
          */
         XMLESignDirective.prototype.signXML = function (sCertName, body) {
             var _this = this;
-            var CAPICOM_CURRENT_USER_STORE = 2;
-            var CAPICOM_MY_STORE = 'My';
-            var CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = 2;
+            // const CAPICOM_CURRENT_USER_STORE = 2;
+            // const CAPICOM_MY_STORE = 'My';
+            // const CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED = 2;
             var CADESCOM_CONTAINER_STORE = 100;
             var CAPICOM_CERTIFICATE_FIND_SHA1_HASH = 0;
-            var CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME = 1;
+            // const CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME = 1;
             var CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE = 2;
             var CADESCOM_ENCODE_BASE64 = 0;
             var run = function () {
@@ -695,7 +695,7 @@
                                 return [4 /*yield*/, cadesplugin.CreateObjectAsync('CAdESCOM.Store')];
                             case 1:
                                 oStore = _a.sent();
-                                return [4 /*yield*/, oStore.Open(CAPICOM_CURRENT_USER_STORE, CAPICOM_MY_STORE, CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED, CADESCOM_CONTAINER_STORE)];
+                                return [4 /*yield*/, oStore.Open(CADESCOM_CONTAINER_STORE)];
                             case 2:
                                 _a.sent();
                                 return [4 /*yield*/, oStore.Certificates];
