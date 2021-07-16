@@ -2,6 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { CryptoProService } from "./crypto-pro.service";
 import { CertificateModel, ISignResult } from "./models";
+import * as i0 from "@angular/core";
 export declare class XMLESignDirective {
     private cryptoService;
     /**
@@ -106,4 +107,6 @@ export declare class XMLESignDirective {
      * @private
      */
     private signXML;
+    static ɵfac: i0.ɵɵFactoryDef<XMLESignDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<XMLESignDirective, "[xml-e-sign]", ["xmlESign"], { "rootField": "rootField"; "jsonObject": "jsonObject"; "isNeedDownloadFile": "isNeedDownloadFile"; }, { "successResult": "successResult"; "failedResult": "failedResult"; }, never>;
 }
